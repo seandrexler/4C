@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <!--<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />-->
+    <link rel="stylesheet" type="text/css" href="form/view.css" media="all">
+    <style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0; font-family: Arial, sans-serif; font-size: small; }
+      
+      #searchwell {
+        width : 330px;
+      }
+
+      #searchwell .unselected {
+        position:relative;
+        padding-left: 18px;
+        padding-top: 1px;
+        margin-top: 5px;
+        background-image: url("http://labs.google.com/ridefinder/images/mm_20_yellow.png");
+        background-repeat: no-repeat;
+        background-position: top left;
+      }
+
+      .unselected .gs-watermark {
+        display: none;
+      }
+
+      .unselected .gs-directions {
+        display: none;
+      }
+
+      .unselected .gs-directions-to-from {
+        display: none;
+      }
+
+      .unselected .select {
+        cursor: pointer;
+        text-decoration: underline;
+        color: #7777cc;
+      }
+
+      #searchwell .red {
+        background-image: url("http://labs.google.com/ridefinder/images/mm_20_red.png");
+      }
+      
+      .submit-report { /* top: 50px; left: 180px; position: absolute;*/ float:right; cursor:pointer; }
+
+      
+      #queryinput { width: 250px; }
+      
+      #info { text-align:center; left:0; }
+      .lightBox {
+        filter:alpha(opacity=60);
+        -moz-opacity:0.6;
+        -khtml-opacity: 0.6;
+        opacity: 0.6;
+        background-color:white;
+        padding:2px;
+      }
+            
+      #root-container { width:500px; }
+      #input-container { margin-bottom: 5px; }
+      #searchwell-container { position: absolute; left: 540px; }
+      #map-canvas { height: 350px; border: 1px solid #979797; }
+      
+      #overlay {
+        width: 100%;
+        min-height: 100%;
+        height:100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        background: url('img/overlay.png') repeat 0 0;
+        display: none;
+        text-align: center;
+      }
+      /** ie6 and below only **/
+      * html #overlay {
+          background-image: url('img/overlay-ie6.png');
+          height: 100%;
+          position: absolute;
+      }
+      #overlay-panel {
+        margin:0 auto 0 auto;
+        width: 670px;
+        height: 100%;
+        overflow-y:auto;
+        background: #FFF;
+      }
+      
+      .form_description { border-bottom:none; }
+    </style>
+  </head>
+  <body>
+    <div id="root-container">
+      <div id="info" class="lightbox">Detecting your location...</div>
+      <div id="input-container">
+        <div>
+          <input type="text" id="queryInput" value="daycare" />
+          <input type="button" value="Find" onclick="doSearch()" />
+        </div>
+      </div>
+      <div id="searchwell-container">
+        <div id="searchwell"></div>
+      </div>
+      <div id="map-canvas"></div>
+
+<template id="report-template">
+<div id="report-container">
+<img id="top" src="form/top.png" alt="">
+<div id="form-container">
+
+  <h1><a>Child Care Check Complaint</a></h1>
+  <form id="form_734813" class="appnitro"  method="post" action="/formbuilder/view.php">
+        <div class="form_description">
+    <h2>Child Care Check Complaint</h2>
+    <p>Most licensed child care programs offer safe and healthy environments. Occasionally, parents may need to report that a child care facility is not meeting licensing standards.</p>
+  </div>						
+    <ul >
+    
+    <li class="section_break">
+    <h3>Reporter</h3>
+    <p></p>
+  </li>
+  <li id="li_1" >
+  <label class="description" for="element_1">Name </label>
+  <span>
+    <input id="element_1_1" name= "element_1_1" class="element text" maxlength="255" size="8" value=""/>
+    <label>First</label>
+  </span>
+  <span>
+    <input id="element_1_2" name= "element_1_2" class="element text" maxlength="255" size="14" value=""/>
+    <label>Last</label>
+  </span> 
+  </li>
+  <li id="li_7" >
+  <label class="description" for="element_7">Email </label>
+  <div>
+    <input id="element_7" name="element_7" class="element text medium" type="text" maxlength="255" value=""/> 
+  </div> 
+  </li>
+  <li id="li_6" >
+  <label class="description" for="element_6">Phone </label>
+  <span>
+    <input id="element_6_1" name="element_6_1" class="element text" size="3" maxlength="3" value="" type="text"> -
+    <label for="element_6_1">(###)</label>
+  </span>
+  <span>
+    <input id="element_6_2" name="element_6_2" class="element text" size="3" maxlength="3" value="" type="text"> -
+    <label for="element_6_2">###</label>
+  </span>
+  <span>
+    <input id="element_6_3" name="element_6_3" class="element text" size="4" maxlength="4" value="" type="text">
+    <label for="element_6_3">####</label>
+  </span>
+   
+  </li>
+  <li class="section_break">
+    <h3>Complaint Details</h3>
+    <p></p>
+  </li>
+  <li id="li_2" >
+  <label class="description" for="element_2">Summary </label>
+  <div>
+    <input id="element_2" name="element_2" class="element text large" type="text" maxlength="255" value=""/> 
+  </div> 
+  </li>
+  <li id="li_8" >
+  <label class="description" for="element_8">Severity </label>
+  <div>
+  <select class="element select medium" id="element_8" name="element_8"> 
+    <option value="" selected="selected"></option>
+<option value="1" >1 - Notice</option>
+<option value="2" >3 - Mild</option>
+<option value="3" >5 - Important</option>
+<option value="4" >8 - Severe</option>
+<option value="5" >10 - Critical</option>
+
+  </select>
+  </div> 
+  </li>
+  <li id="li_4" >
+  <label class="description" for="element_4">Description </label>
+  <div>
+    <textarea id="element_4" name="element_4" class="element textarea medium"></textarea> 
+  </div> 
+  </li>
+    
+  <li class="buttons">
+      <input id="cancelForm" class="button_text" type="button" name="cancel" value="Cancel" />
+      <input id="saveForm" class="button_text" type="button" name="submit" value="Submit" />
+  </li>
+    </ul>
+  </form>	
+</div>
+<img id="bottom" src="form/bottom.png" alt="">
+</div>
+</template>
+  
+    </div>
+  </body>
+  <script type="text/javascript" src="form/view.js"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+  <script type="text/javascript" src="http://www.google.com/uds/api?file=uds.js&amp;v=1.0&amp;key=ABQIAAAAjU0EJWnWPMv7oQ-jjS7dYxQ82LsCgTSsdpNEnBsExtoeJv4cdBSUkiLH6ntmAr_5O4EfjDwOa0oZBQ"></script>
+  <script type="text/javascript" src="js/geometa.js"></script>
+  <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+  <script type="text/javascript">
+  //<![CDATA[
+
+  // Our global state
+  var gLocalSearch;
+  var gMap;
+  var gInfoWindow;
+  var gSelectedResults = [];
+  var gCurrentResults = [];
+  var gSearchForm;
+
+  // Create our "tiny" marker icon
+  var gYellowIcon = new google.maps.MarkerImage(
+    "http://labs.google.com/ridefinder/images/mm_20_yellow.png",
+    new google.maps.Size(12, 20),
+    new google.maps.Point(0, 0),
+    new google.maps.Point(6, 20));
+  var gRedIcon = new google.maps.MarkerImage(
+    "http://labs.google.com/ridefinder/images/mm_20_red.png",
+    new google.maps.Size(12, 20),
+    new google.maps.Point(0, 0),
+    new google.maps.Point(6, 20));
+  var gSmallShadow = new google.maps.MarkerImage(
+    "http://labs.google.com/ridefinder/images/mm_20_shadow.png",
+    new google.maps.Size(22, 20),
+    new google.maps.Point(0, 0),
+    new google.maps.Point(6, 20));
+
+   // Set up the map and the local searcher.
+  function OnLoad() {
+
+    // Initialize the map with default UI.
+    gMap = new google.maps.Map(document.getElementById("map-canvas"), {
+      center: new google.maps.LatLng(47.6615, -117.4218),
+      zoom: 12,
+      mapTypeId: 'roadmap'
+    });
+    prepareGeolocation();
+    doGeolocation();
+    
+    // Create one InfoWindow to open when a marker is clicked.
+    gInfoWindow = new google.maps.InfoWindow;
+    google.maps.event.addListener(gInfoWindow, 'closeclick', function() {
+      unselectMarkers();
+    });
+
+    // Initialize the local searcher
+    gLocalSearch = new GlocalSearch();
+    gLocalSearch.setSearchCompleteCallback(null, OnLocalSearch);
+  }
+
+  function unselectMarkers() {
+    for (var i = 0; i < gCurrentResults.length; i++) {
+    gCurrentResults[i].unselect();
+    }
+  }
+
+  function doSearch() {
+    var query = document.getElementById("queryInput").value;
+    gLocalSearch.setCenterPoint(gMap.getCenter());
+    gLocalSearch.execute(query);
+  }
+
+  // Called when Local Search results are returned, we clear the old
+  // results and load the new ones.
+  function OnLocalSearch() {
+    if (!gLocalSearch.results) return;
+    var searchWell = document.getElementById("searchwell");
+
+    // Clear the map and the old search well
+    searchWell.innerHTML = "";
+    for (var i = 0; i < gCurrentResults.length; i++) {
+      gCurrentResults[i].marker().setMap(null);
+    }
+    // Close the infowindow
+    gInfoWindow.close();
+
+    gCurrentResults = [];
+    for (var i = 0; i < gLocalSearch.results.length; i++) {
+      gCurrentResults.push(new LocalResult(gLocalSearch.results[i]));
+    }
+
+    var attribution = gLocalSearch.getAttribution();
+    if (attribution) {
+      document.getElementById("searchwell").appendChild(attribution);
+    }
+
+    // Move the map to the first result
+    var first = gLocalSearch.results[0];
+    gMap.setCenter(new google.maps.LatLng(parseFloat(first.lat),
+                      parseFloat(first.lng)));
+
+  }
+
+  // Cancel the form submission, executing an AJAX Search API search.
+  function CaptureForm(searchForm) {
+    gLocalSearch.execute(searchForm.input.value);
+    return false;
+  }
+
+
+
+  // A class representing a single Local Search result returned by the
+  // Google AJAX Search API.
+  function LocalResult(result) {
+    var me = this;
+    me.result_ = result;
+    me.resultNode_ = me.node();
+    me.marker_ = me.marker();
+    google.maps.event.addDomListener(me.resultNode_, 'mouseover', function() {
+      // Highlight the marker and result icon when the result is
+      // mouseovered.  Do not remove any other highlighting at this time.
+      me.highlight(true);
+    });
+    google.maps.event.addDomListener(me.resultNode_, 'mouseout', function() {
+    // Remove highlighting unless this marker is selected (the info
+    // window is open).
+    if (!me.selected_) me.highlight(false);
+    });
+    google.maps.event.addDomListener(me.resultNode_, 'click', function() {
+      me.select();
+    });
+    document.getElementById("searchwell").appendChild(me.resultNode_);
+  }
+
+  LocalResult.prototype.node = function() {
+    if (this.resultNode_) return this.resultNode_;
+    return this.html();
+  };
+
+  // Returns the GMap marker for this result, creating it with the given
+  // icon if it has not already been created.
+  LocalResult.prototype.marker = function() {
+    var me = this;
+    if (me.marker_) return me.marker_;
+    var marker = me.marker_ = new google.maps.Marker({
+    position: new google.maps.LatLng(parseFloat(me.result_.lat),
+                     parseFloat(me.result_.lng)),
+    icon: gYellowIcon, shadow: gSmallShadow, map: gMap});
+    google.maps.event.addListener(marker, "click", function() {
+      me.select();
+    });
+    return marker;
+  };
+
+  // Unselect any selected markers and then highlight this result and
+  // display the info window on it.
+  LocalResult.prototype.select = function() {
+    unselectMarkers();
+    this.selected_ = true;
+    this.highlight(true);
+    gInfoWindow.setContent(this.html(true));
+    gInfoWindow.open(gMap, this.marker());
+  };
+
+  LocalResult.prototype.isSelected = function() {
+    return this.selected_;
+  };
+
+  // Remove any highlighting on this result.
+  LocalResult.prototype.unselect = function() {
+    this.selected_ = false;
+    this.highlight(false);
+  };
+
+  // Returns the HTML we display for a result before it has been "saved"
+  LocalResult.prototype.html = function() {
+    var me = this;
+    var container = document.createElement("div");
+    container.className = "unselected";
+    var report = document.createElement("img");
+    report.className = "submit-report";
+    report.src = "img/1383412872_report_add.png";
+    report.title = "File a Complaint";
+    google.maps.event.addDomListener(report, 'click', function(e) {
+      e.preventDefault();
+      console.log(me.result_);
+      $(document).trigger('report.show', [ me.result_ ]);
+    });
+    container.appendChild(report);
+    container.appendChild(me.result_.html.cloneNode(true));
+    return container;
+  }
+
+  LocalResult.prototype.highlight = function(highlight) {
+    this.marker().setOptions({icon: highlight ? gRedIcon : gYellowIcon});
+    this.node().className = "unselected" + (highlight ? " red" : "");
+  }
+
+  GSearch.setOnLoadCallback(OnLoad);
+  
+  
+  
+  function doGeolocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(positionSuccess, positionError);
+    } else {
+      positionError(-1);
+    }
+  }
+
+  function positionError(err) {
+    var msg;
+    switch(err.code) {
+      case err.UNKNOWN_ERROR:
+        msg = "Unable to find your location";
+        break;
+      case err.PERMISSION_DENINED:
+        msg = "Permission denied in finding your location";
+        break;
+      case err.POSITION_UNAVAILABLE:
+        msg = "Your location is currently unknown";
+        break;
+      case err.BREAK:
+        msg = "Attempt to find location took too long";
+        break;
+      default:
+        msg = "Location detection not supported in browser";
+    }
+    document.getElementById('info').innerHTML = msg;
+  }
+
+  function positionSuccess(position) {
+    // Centre the map on the new location
+    var coords = position.coords || position.coordinate || position;
+    var latLng = new google.maps.LatLng(coords.latitude, coords.longitude);
+    map.setCenter(latLng);
+    map.setZoom(12);
+    var marker = new google.maps.Marker({
+	    map: map,
+	    position: latLng,
+	    title: 'Why, there you are!'
+    });
+    document.getElementById('info').innerHTML = 'Looking for <b>' +
+        coords.latitude + ', ' + coords.longitude + '</b>...';
+
+    // And reverse geocode.
+    (new google.maps.Geocoder()).geocode({latLng: latLng}, function(resp) {
+		  var place = "You're around here somewhere!";
+		  if (resp[0]) {
+			  var bits = [];
+			  for (var i = 0, I = resp[0].address_components.length; i < I; ++i) {
+				  var component = resp[0].address_components[i];
+				  if (contains(component.types, 'political')) {
+					  bits.push('<b>' + component.long_name + '</b>');
+					}
+				}
+				if (bits.length) {
+					place = bits.join(' > ');
+				}
+				marker.setTitle(resp[0].formatted_address);
+			}
+			document.getElementById('info').innerHTML = place;
+	  });
+  }
+
+  function contains(array, item) {
+	  for (var i = 0, I = array.length; i < I; ++i) {
+		  if (array[i] == item) return true;
+		}
+		return false;
+	}
+  
+  var $overlay_wrapper;
+  var $overlay_panel;
+
+  $(function() {
+    $overlay_wrapper = $('<div id="overlay"></div>').appendTo( $('BODY') );
+    $overlay_panel = $('<div id="overlay-panel"></div>').appendTo( $overlay_wrapper );
+    $overlay_panel.html($('#report-template').html());
+    
+    $('#saveForm').on('click', function() {
+      $(document).trigger('report.submit', {
+        
+      });
+    });
+    $('#cancelForm').on('click', function() {
+      $(document).trigger('report.hide');
+    });
+    
+    $(document).on('report.show', function(e, resultData) {
+      $overlay_wrapper.fadeIn(700);
+//      $('#overlay').fadeIn();
+//      $('#report-container').fadeIn();     
+    }).on('report.hide', function(e) {
+      $overlay_wrapper.fadeOut(300);
+//      $('#report-container').hide();     
+//      $('#overlay').hide();
+    }).on('report.submit', function(e, data) {
+      
+    });
+  });
+  //]]>
+  </script>
+</html>
