@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoProj", "MongoProj\MongoProj.csproj", "{EF8D2B01-85C6-4F3C-92F2-7B169B189E28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoDriver", "MongoDriver\MongoDriver.csproj", "{B0B5D57F-6405-4DAC-9878-D7B9A1F59A9B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EF8D2B01-85C6-4F3C-92F2-7B169B189E28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF8D2B01-85C6-4F3C-92F2-7B169B189E28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF8D2B01-85C6-4F3C-92F2-7B169B189E28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF8D2B01-85C6-4F3C-92F2-7B169B189E28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0B5D57F-6405-4DAC-9878-D7B9A1F59A9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0B5D57F-6405-4DAC-9878-D7B9A1F59A9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0B5D57F-6405-4DAC-9878-D7B9A1F59A9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0B5D57F-6405-4DAC-9878-D7B9A1F59A9B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
