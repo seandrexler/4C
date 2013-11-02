@@ -117,7 +117,10 @@
         <div class="form_description">
     <h2>Child Care Check Complaint</h2>
     <p>Most licensed child care programs offer safe and healthy environments. Occasionally, parents may need to report that a child care facility is not meeting licensing standards.</p>
-  </div>						
+  </div>
+  <div style="float:right">
+    
+  </div>
     <ul >
     
     <li class="section_break">
@@ -127,33 +130,34 @@
   <li id="li_1" >
   <label class="description" for="element_1">Name </label>
   <span>
-    <input id="element_1_1" name= "element_1_1" class="element text" maxlength="255" size="8" value=""/>
+    <input id="firstName" name= "firstName" class="element text" maxlength="255" size="8" value=""/>
     <label>First</label>
   </span>
   <span>
-    <input id="element_1_2" name= "element_1_2" class="element text" maxlength="255" size="14" value=""/>
+    <input id="lastName" name= "lastName" class="element text" maxlength="255" size="14" value=""/>
     <label>Last</label>
   </span> 
   </li>
   <li id="li_7" >
-  <label class="description" for="element_7">Email </label>
+  <label class="description" for="emailAddress">Email </label>
   <div>
-    <input id="element_7" name="element_7" class="element text medium" type="text" maxlength="255" value=""/> 
+    <input id="emailAddress" name="emailAddress" class="element text medium" type="text" maxlength="255" value=""/> 
+    <input id="sendCopy" name="sendCopy" class="element checkbox" type="checkbox" style="display:inline" /> <label for="sendCopy"  style="display:inline">Send me an email with this report</label>
   </div> 
   </li>
   <li id="li_6" >
-  <label class="description" for="element_6">Phone </label>
+  <label class="description" for="phoneNumber">Phone </label>
   <span>
-    <input id="element_6_1" name="element_6_1" class="element text" size="3" maxlength="3" value="" type="text"> -
-    <label for="element_6_1">(###)</label>
+    <input id="phoneNumber_1" name="phoneNumber_1" class="element text" size="3" maxlength="3" value="" type="text"> -
+    <label for="phoneNumber_1">(###)</label>
   </span>
   <span>
-    <input id="element_6_2" name="element_6_2" class="element text" size="3" maxlength="3" value="" type="text"> -
-    <label for="element_6_2">###</label>
+    <input id="phoneNumber_2" name="phoneNumber_2" class="element text" size="3" maxlength="3" value="" type="text"> -
+    <label for="phoneNumber_2">###</label>
   </span>
   <span>
-    <input id="element_6_3" name="element_6_3" class="element text" size="4" maxlength="4" value="" type="text">
-    <label for="element_6_3">####</label>
+    <input id="phoneNumber_3" name="phoneNumber_3" class="element text" size="4" maxlength="4" value="" type="text">
+    <label for="phoneNumber_3">####</label>
   </span>
    
   </li>
@@ -162,35 +166,35 @@
     <p></p>
   </li>
   <li id="li_2" >
-  <label class="description" for="element_2">Summary </label>
+  <label class="description" for="issueSummary">Summary </label>
   <div>
-    <input id="element_2" name="element_2" class="element text large" type="text" maxlength="255" value=""/> 
+    <input id="issueSummary" name="issueSummary" class="element text large" type="text" maxlength="255" value=""/> 
   </div> 
   </li>
   <li id="li_8" >
-  <label class="description" for="element_8">Severity </label>
+  <label class="description" for="severity">Severity </label>
   <div>
-  <select class="element select medium" id="element_8" name="element_8"> 
+  <select class="element select medium" id="severity" name="severity"> 
     <option value="" selected="selected"></option>
 <option value="1" >1 - Notice</option>
-<option value="2" >3 - Mild</option>
-<option value="3" >5 - Important</option>
-<option value="4" >8 - Severe</option>
-<option value="5" >10 - Critical</option>
+<option value="3" >3 - Mild</option>
+<option value="5" >5 - Important</option>
+<option value="8" >8 - Severe</option>
+<option value="10" >10 - Critical</option>
 
   </select>
   </div> 
   </li>
   <li id="li_4" >
-  <label class="description" for="element_4">Description </label>
+  <label class="description" for="description">Description </label>
   <div>
-    <textarea id="element_4" name="element_4" class="element textarea medium"></textarea> 
+    <textarea id="description" name="description" class="element textarea medium"></textarea> 
   </div> 
   </li>
     
   <li class="buttons">
-      <input id="cancelForm" class="button_text" type="button" name="cancel" value="Cancel" />
       <input id="saveForm" class="button_text" type="button" name="submit" value="Submit" />
+      <input id="cancelForm" class="button_text" type="button" name="cancel" value="Cancel" />
   </li>
     </ul>
   </form>	
@@ -382,7 +386,7 @@
     report.title = "File a Complaint";
     google.maps.event.addDomListener(report, 'click', function(e) {
       e.preventDefault();
-      console.log(me.result_);
+      //console.log(me.result_);
       $(document).trigger('report.show', [ me.result_ ]);
     });
     container.appendChild(report);
@@ -479,23 +483,67 @@
     
     $('#saveForm').on('click', function() {
       $(document).trigger('report.submit', {
-        
+          reporter: $('#firstName').val() + ' ' + $('#lastName').val(),
+          issue: $('#issueSummary').val(),
+          description: $('#description').val(),
+          severity: $('#severity').val(),
+          contactEmail: $('#emailAddress').val(),
+          contactPhone: $('#phoneNumber_1').val() + '-' + $('#phoneNumber_2').val() + '-' + $('#phoneNumber_3').val(),
+          sendCopy: $('#sendCopy').prop('checked')
       });
     });
+    
     $('#cancelForm').on('click', function() {
       $(document).trigger('report.hide');
     });
     
-    $(document).on('report.show', function(e, resultData) {
+    $(document).on('report.reset', function(e){
+      $('#issueSummary').val('');
+      $('#description').val('');
+      $('#severity').val('');      
+    }).on('report.show', function(e, resultData) {
+      $('#report-container').data('report', {
+        name: resultData.titleNoFormatting,
+        address: resultData.streetAddress,
+        city: resultData.city,
+        state: resultData.region,
+        zipcode: '',
+        location: {
+          latitude: resultData.lat,
+          longitude: resultData.lng
+        }
+      });
       $overlay_wrapper.fadeIn(700);
-//      $('#overlay').fadeIn();
-//      $('#report-container').fadeIn();     
     }).on('report.hide', function(e) {
+      $('#report-container').data('report', null);
       $overlay_wrapper.fadeOut(300);
-//      $('#report-container').hide();     
-//      $('#overlay').hide();
     }).on('report.submit', function(e, data) {
+      //console.log('data', data);
+      var report = $('#report-container').data('report');
+      report.complaints = [{
+        reporter: data.reporter,
+        issue: data.issue,
+        description: data.description,
+        severity: data.severity,
+        contactRef: (data.contactEmail !== '' ? 'Email: ' + data.contactEmail : '') + (data.contactEmail !== '' && data.contactPhone !== '--' ? ' ' : '') + (data.contactPhone !== '--' ? 'Phone: ' + data.contactPhone : '')
+      }];
+      report.sendCopy = data.sendCopy;
+
+      console.log('report', report);
       
+      $.ajax({
+        url: "http://localhost/4C/api/Care",
+        data: JSON.stringify(report),
+        processData: false,
+        dataType: "json",
+        success:function(a) {
+          $(document).trigger('report.reset');
+        },
+        error:function() {
+        }
+      });
+
+      $(document).trigger('report.hide');
     });
   });
   //]]>
