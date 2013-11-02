@@ -1,9 +1,0 @@
-C:\Users\seand.IPZ\Documents\GitHub\4C\Proj\MongoProj\bin\Debug\MongoProj.dll
-C:\Users\seand.IPZ\Documents\GitHub\4C\Proj\MongoProj\bin\Debug\MongoProj.pdb
-C:\Users\seand.IPZ\Documents\GitHub\4C\Proj\MongoProj\bin\Debug\MongoDB.Bson.dll
-C:\Users\seand.IPZ\Documents\GitHub\4C\Proj\MongoProj\bin\Debug\MongoDB.Driver.dll
-C:\Users\seand.IPZ\Documents\GitHub\4C\Proj\MongoProj\bin\Debug\MongoDB.Bson.xml
-C:\Users\seand.IPZ\Documents\GitHub\4C\Proj\MongoProj\bin\Debug\MongoDB.Driver.xml
-C:\Users\seand.IPZ\Documents\GitHub\4C\Proj\MongoProj\obj\Debug\MongoProj.csprojResolveAssemblyReference.cache
-C:\Users\seand.IPZ\Documents\GitHub\4C\Proj\MongoProj\obj\Debug\MongoProj.dll
-C:\Users\seand.IPZ\Documents\GitHub\4C\Proj\MongoProj\obj\Debug\MongoProj.pdb
