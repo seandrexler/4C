@@ -1,0 +1,23 @@
+{
+  "_id" : ObjectId("5274bdd2bc31191d8040f919"),
+  "name" : "Tom",
+  "address" : "1255 E. Westfield",
+  "city" : "Spokane",
+  "state" : "WA",
+  "zipcode" : 99205,
+  "complaints" : [{
+      "reporter" : "Tom",
+      "issue" : "",
+      "description" : "",
+      "severity" : 7,
+      "incidentDate" : ISODate("2013-11-02T10:40:06.872Z"),
+      "contactRef" : ""
+    }, {
+      "reporter" : "Ryan",
+      "issue" : "Injury",
+      "description" : "Another student bit my kid and nobody called me.",
+      "severity" : 7,
+      "incidentDate" : ISODate("2013-11-02T10:42:10.367Z"),
+      "contactRef" : "thatdad1@hotmail.com"
+    }]
+}
